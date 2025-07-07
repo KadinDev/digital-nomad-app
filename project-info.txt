@@ -1,0 +1,156 @@
+GIT
+Quando criado um projeto o expo já trás o git, então basta criar o repositório no github
+e usar o git clone em diante
+
+*   *   *   *   *   *   
+- Formatador de código
+Extensão Prettier - Code formatter
+https://prettier.io/?_gl=1*iptwjo*_ga*MTk4MjE4NTQyOS4xNzMyMTUxMzA3*_ga_37GXT4VGQK*czE3NDgyNzA2NDkkbzQzJGcxJHQxNzQ4Mjc0NzYzJGowJGwwJGgw
+
+vai em Settings do VSCode, digita defaultFormatter, e em Editor: Default Formatter seleciona o Prettier.
+
+agora digita onSave, em Editor: Format On Save, marca o checkbox.
+e em Editor: Format On Save Mode, deixa como file
+
+
+*   *   *   *   *   *   
+
+
+ANTES DE COMEÇAR O PROJETO LIMPEI OS ARQUIVOS, DEIXANDO PADRÕES MESMO:
+arquivos:
+    +not-found.tsx
+
+    import { Stack } from "expo-router";
+
+    export default function NotFoundScreen() {
+    return (
+        <>
+        <Stack.Screen options={{ title: "Oops!" }} />
+        </>
+    );
+    }
+
+    *
+
+    _layout.tsx / da pasta app:
+    
+    import { useFonts } from "expo-font";
+    import { Stack } from "expo-router";
+    import { StatusBar } from "expo-status-bar";
+    import "react-native-reanimated";
+
+    export default function RootLayout() {
+    const [loaded] = useFonts({
+        SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    });
+
+    if (!loaded) {
+        // Async font loading only occurs in development.
+        return null;
+    }
+
+    return (
+        <Stack>
+        <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="sign-in" />
+        <StatusBar style="auto" />
+        </Stack>
+    );
+    }
+
+    *
+
+    _layout.tsx da pasta (protected)
+
+    import { Redirect, Stack } from "expo-router";
+
+    const isSignIn = false;
+
+    export default function ProtectedLayout() {
+    if (isSignIn) {
+        return <Redirect href="/sign-in" />;
+    }
+    return (
+        <Stack
+        screenOptions={{
+            headerShown: false,
+            fullScreenGestureEnabled: true, // arrastar a tela para voltar
+        }}
+        >
+        <Stack.Screen name="(Tab)" />
+        </Stack>
+    );
+    }
+
+    *
+
+    _layout.tsx da pasta (tabs)
+
+    import { Tabs } from "expo-router";
+    import React from "react";
+    import { Platform } from "react-native";
+
+    export default function TabLayout() {
+    return (
+        <Tabs
+        screenOptions={{
+            tabBarStyle: Platform.select({
+            ios: {
+                // Use a transparent background on iOS to show the blur effect
+                position: "absolute",
+            },
+            default: {},
+            }),
+        }}
+        >
+        <Tabs.Screen
+            name="index"
+            options={{
+            title: "Home",
+            }}
+        />
+        <Tabs.Screen
+            name="explore"
+            options={{
+            title: "Explore",
+            }}
+        />
+        </Tabs>
+    );
+    }
+
+
+
+
+*   *   *   *   *   *   
+
+Lib Shopify
+npm install @shopify/restyle
+
+Doc Lib Shopify
+https://shopify.github.io/restyle/?_gl=1*1afmcmb*_ga*MTk4MjE4NTQyOS4xNzMyMTUxMzA3*_ga_37GXT4VGQK*czE3NDg0NTc0ODkkbzUzJGcxJHQxNzQ4NDU5NDYxJGo2MCRsMCRoMA..#installation
+
+*   *   *   *   *   *   
+
+
+para os icones, baixar do Figma e enviar para o site, seleciona eles no site
+e clica em Generate Font, depois em Download. vamos precisar somente do selection.json,
+icomoon.ttf
+ 
+icomoon.io
+https://icomoon.io/app/#/select
+
+
+******************************
+Animações
+
+Easing Functions
+https://easings.net/?_gl=1*18fwyv4*_ga*MTE0MDU4NzE5Mi4xNzQ5MDUxNTMx*_ga_37GXT4VGQK*czE3NTA0NTg5OTEkbzQxJGcxJHQxNzUwNDU4OTkxJGo2MCRsMCRoMA..#
+
+******************************
+
+Mapas
+https://docs.expo.dev/versions/latest/sdk/map-view/?_gl=1*1gysy8d*_ga*MTE0MDU4NzE5Mi4xNzQ5MDUxNTMx*_ga_37GXT4VGQK*czE3NTA0NTg5OTEkbzQxJGcxJHQxNzUwNDYyNDgxJGo1MSRsMCRoMA..
+
+npx expo install react-native-maps
